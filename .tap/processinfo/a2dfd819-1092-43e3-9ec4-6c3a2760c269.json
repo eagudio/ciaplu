@@ -1,5 +1,5 @@
 {
-  "date": "2024-11-19T16:27:14.023Z",
+  "date": "2024-11-19T17:01:43.251Z",
   "argv": [
     "C:\\Program Files\\nodejs\\node.exe",
     "C:\\Development\\lab\\ciaplu\\test\\tests\\auth.test.ts"
@@ -12,10 +12,10 @@
   ],
   "NODE_OPTIONS": "\"--import=file:///C:/Development/lab/ciaplu/node_modules/@tapjs/processinfo/dist/esm/import.mjs\"",
   "cwd": "C:\\Development\\lab\\ciaplu",
-  "pid": 38052,
-  "ppid": 20084,
+  "pid": 29792,
+  "ppid": 9964,
   "parent": null,
-  "uuid": "22614dbe-d62c-454f-94bb-74a0cb6123ce",
+  "uuid": "a2dfd819-1092-43e3-9ec4-6c3a2760c269",
   "files": [
     "C:\\Development\\lab\\ciaplu\\test\\tests\\auth.test.ts",
     "C:\\Development\\lab\\ciaplu\\node_modules\\@isaacs\\ts-node-temp-fork-for-pr-2009\\import.mjs",
@@ -29,8 +29,6 @@
     "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\mock\\dist\\esm\\munge-mocks.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\mock\\dist\\esm\\resolve-mock-entry-point.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\mock\\dist\\esm\\service-key.js",
-    "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\dist\\esm\\call-site-like.js",
-    "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\dist\\esm\\require-resolve.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\get-all-conditional-values.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\get-all-conditions.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\get-unique-condition-sets.js",
@@ -38,28 +36,30 @@
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\resolve-all-local-imports.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\resolve-conditional-value.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\resolve-import.js",
+    "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\dist\\esm\\call-site-like.js",
+    "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\dist\\esm\\require-resolve.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\is-windows.js",
-    "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\dist\\esm\\parse.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\get-conditional-values-list.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\errors.js",
-    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\get-named-exports-list.js",
-    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\read-pkg.js",
-    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\resolve-export.js",
-    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\star-glob.js",
-    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\to-path.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\file-exists.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\find-dep-package.js",
+    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\read-pkg.js",
+    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\star-glob.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\to-file-url.js",
+    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\to-path.js",
+    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\get-named-exports-list.js",
+    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\resolve-export.js",
+    "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\dist\\esm\\parse.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\resolve-dependency-export.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\resolve-package-import.js",
-    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\read-json.js",
-    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\find-star-match.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\dist\\esm\\index.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\walk-up-path\\dist\\esm\\index.js",
+    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\read-json.js",
+    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\find-star-match.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\minimatch\\dist\\esm\\index.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\dist\\esm\\glob.js",
-    "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\dist\\esm\\ignore.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\dist\\esm\\has-magic.js",
+    "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\dist\\esm\\ignore.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\minimatch\\dist\\esm\\assert-valid-pattern.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\minimatch\\dist\\esm\\ast.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\minimatch\\dist\\esm\\escape.js",
@@ -68,12 +68,13 @@
     "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\dist\\esm\\walker.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\dist\\esm\\pattern.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\minimatch\\dist\\esm\\brace-expressions.js",
-    "C:\\Development\\lab\\ciaplu\\node_modules\\path-scurry\\node_modules\\lru-cache\\dist\\esm\\index.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\minipass\\dist\\esm\\index.js",
+    "C:\\Development\\lab\\ciaplu\\node_modules\\path-scurry\\node_modules\\lru-cache\\dist\\esm\\index.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\dist\\esm\\processor.js",
     "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\mock\\dist\\esm\\loader.mjs",
     "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\mock\\dist\\esm\\hooks.mjs",
     "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\mock\\dist\\esm\\mock-service-client.js",
+    "C:\\Development\\lab\\ciaplu\\src\\main.ts",
     "C:\\Development\\lab\\ciaplu\\src\\exceptionmatcher.ts",
     "C:\\Development\\lab\\ciaplu\\test\\mock\\mockexception1.ts",
     "C:\\Development\\lab\\ciaplu\\test\\mock\\mockexception2.ts"
@@ -106,12 +107,6 @@
     "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\mock\\dist\\esm\\service-key.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\mock\\src\\service-key.ts"
     ],
-    "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\dist\\esm\\call-site-like.js": [
-      "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\src\\call-site-like.ts"
-    ],
-    "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\dist\\esm\\require-resolve.js": [
-      "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\src\\require-resolve.ts"
-    ],
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\get-all-conditional-values.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\get-all-conditional-values.ts"
     ],
@@ -133,11 +128,14 @@
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\resolve-import.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\resolve-import.ts"
     ],
+    "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\dist\\esm\\call-site-like.js": [
+      "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\src\\call-site-like.ts"
+    ],
+    "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\dist\\esm\\require-resolve.js": [
+      "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\src\\require-resolve.ts"
+    ],
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\is-windows.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\is-windows.ts"
-    ],
-    "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\dist\\esm\\parse.js": [
-      "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\src\\parse.ts"
     ],
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\get-conditional-values-list.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\get-conditional-values-list.ts"
@@ -145,29 +143,32 @@
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\errors.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\errors.ts"
     ],
-    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\get-named-exports-list.js": [
-      "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\get-named-exports-list.ts"
-    ],
-    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\read-pkg.js": [
-      "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\read-pkg.ts"
-    ],
-    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\resolve-export.js": [
-      "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\resolve-export.ts"
-    ],
-    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\star-glob.js": [
-      "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\star-glob.ts"
-    ],
-    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\to-path.js": [
-      "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\to-path.ts"
-    ],
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\file-exists.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\file-exists.ts"
     ],
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\find-dep-package.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\find-dep-package.ts"
     ],
+    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\read-pkg.js": [
+      "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\read-pkg.ts"
+    ],
+    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\star-glob.js": [
+      "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\star-glob.ts"
+    ],
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\to-file-url.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\to-file-url.ts"
+    ],
+    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\to-path.js": [
+      "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\to-path.ts"
+    ],
+    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\get-named-exports-list.js": [
+      "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\get-named-exports-list.ts"
+    ],
+    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\resolve-export.js": [
+      "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\resolve-export.ts"
+    ],
+    "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\dist\\esm\\parse.js": [
+      "C:\\Development\\lab\\ciaplu\\node_modules\\@tapjs\\stack\\src\\parse.ts"
     ],
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\resolve-dependency-export.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\resolve-dependency-export.ts"
@@ -175,17 +176,17 @@
     "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\resolve-package-import.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\resolve-package-import.ts"
     ],
-    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\read-json.js": [
-      "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\read-json.ts"
-    ],
-    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\find-star-match.js": [
-      "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\find-star-match.ts"
-    ],
     "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\dist\\esm\\index.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\src\\index.ts"
     ],
     "C:\\Development\\lab\\ciaplu\\node_modules\\walk-up-path\\dist\\esm\\index.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\walk-up-path\\src\\index.ts"
+    ],
+    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\read-json.js": [
+      "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\read-json.ts"
+    ],
+    "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\dist\\esm\\find-star-match.js": [
+      "C:\\Development\\lab\\ciaplu\\node_modules\\resolve-import\\src\\find-star-match.ts"
     ],
     "C:\\Development\\lab\\ciaplu\\node_modules\\minimatch\\dist\\esm\\index.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\minimatch\\src\\index.ts"
@@ -193,11 +194,11 @@
     "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\dist\\esm\\glob.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\src\\glob.ts"
     ],
-    "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\dist\\esm\\ignore.js": [
-      "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\src\\ignore.ts"
-    ],
     "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\dist\\esm\\has-magic.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\src\\has-magic.ts"
+    ],
+    "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\dist\\esm\\ignore.js": [
+      "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\src\\ignore.ts"
     ],
     "C:\\Development\\lab\\ciaplu\\node_modules\\minimatch\\dist\\esm\\assert-valid-pattern.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\minimatch\\src\\assert-valid-pattern.ts"
@@ -223,19 +224,19 @@
     "C:\\Development\\lab\\ciaplu\\node_modules\\minimatch\\dist\\esm\\brace-expressions.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\minimatch\\src\\brace-expressions.ts"
     ],
-    "C:\\Development\\lab\\ciaplu\\node_modules\\path-scurry\\node_modules\\lru-cache\\dist\\esm\\index.js": [
-      "C:\\Development\\lab\\ciaplu\\node_modules\\path-scurry\\node_modules\\lru-cache\\src\\index.ts"
-    ],
     "C:\\Development\\lab\\ciaplu\\node_modules\\minipass\\dist\\esm\\index.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\minipass\\src\\index.ts"
+    ],
+    "C:\\Development\\lab\\ciaplu\\node_modules\\path-scurry\\node_modules\\lru-cache\\dist\\esm\\index.js": [
+      "C:\\Development\\lab\\ciaplu\\node_modules\\path-scurry\\node_modules\\lru-cache\\src\\index.ts"
     ],
     "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\dist\\esm\\processor.js": [
       "C:\\Development\\lab\\ciaplu\\node_modules\\glob\\src\\processor.ts"
     ]
   },
-  "root": "22614dbe-d62c-454f-94bb-74a0cb6123ce",
+  "root": "a2dfd819-1092-43e3-9ec4-6c3a2760c269",
   "externalID": "test/tests/auth.test.ts",
   "code": 0,
   "signal": null,
-  "runtime": 1223.7995
+  "runtime": 1379.4877000000001
 }

@@ -33,11 +33,11 @@ class TurnaSiError extends Error {}
 You can now use the match method to match exceptions and handle them accordingly:
 
 ```
-import { ExceptionMatcher } from 'ciaplu';
+import ciaplu from 'ciaplu';
 
 const ex = new BoiaFausError("No company licence found.");
 
-ExceptionMatcher.match(ex)
+ciaplu.match(ex)
   .with(BoiaFausError, () => console.log("Handle BoiaFausError"))
   .with(TurnaSiError, () => console.log("Handle TurnaSiError"))
   .otherwise(() => console.log("Handle generic error"));
@@ -45,7 +45,7 @@ ExceptionMatcher.match(ex)
 
 ## API
 
-### `ExceptionMatcher.match(ex)`
+### `ciaplu.match(ex)`
 
 Matches the provided exception ex to handle different exception types. You can chain the following methods:
 

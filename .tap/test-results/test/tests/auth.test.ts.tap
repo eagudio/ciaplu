@@ -2,16 +2,16 @@ TAP version 14
 # Subtest: should match one exception
     ok 1 - should be equal
     1..1
-ok 1 - should match one exception # time=4.034ms
+ok 1 - should match one exception # time=4.683ms
 
 # Subtest: should match to one of two exceptions
     ok 1 - should be equal
     1..1
-ok 2 - should match to one of two exceptions # time=0.658ms
+ok 2 - should match to one of two exceptions # time=0.608ms
 
 # Subtest: should not match two exceptions
     ok 1 - should be equal
     1..1
-ok 3 - should not match two exceptions # time=0.529ms
+ok 3 - should not match two exceptions # time=0.473ms
 
 1..3

@@ -1,3 +1,5 @@
 import { ExceptionMatcher } from "./exceptionmatcher";
 
-export const ciaplu = ExceptionMatcher
+const ciaplu = ExceptionMatcher
+
+export default ciaplu;
