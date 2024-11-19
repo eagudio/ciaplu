@@ -35,12 +35,14 @@ You can now use the match method to match exceptions and handle them accordingly
 ```typescript
 import ciaplu from 'ciaplu';
 
-const ex = new BoiaFausError("No company licence found.");
-
-ciaplu.match(ex)
-  .with(BoiaFausError, () => console.log("Handle BoiaFausError"))
-  .with(TurnaSiError, () => console.log("Handle TurnaSiError"))
-  .otherwise(() => console.log("Handle generic error"));
+try {
+  throw new BoiaFausError("Boia faus!");
+} catch (ex) {
+  ciaplu.match(ex)
+    .with(BoiaFausError, () => console.log("Handle BoiaFausError"))
+    .with(TurnaSiError, () => console.log("Handle TurnaSiError"))
+    .otherwise(() => console.log("Handle generic error"));
+}
 ```
 
 ## API
