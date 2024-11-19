@@ -52,18 +52,6 @@ Matches the provided exception ex to handle different exception types. You can c
 - `.with(ExceptionClass, handler)` – Defines how to handle a specific exception.
 - `.otherwise(handler)` – Defines a generic handler for unhandled exceptions.
 
-### `TurnaSiError.of(ex)`
-
-Checks if the provided error is an instance of `TurnaSiError` and resolves to `true` if so.
-
-```
-class TurnaSiError extends Error {
-  static of(ex: any) {
-    return ex instanceof TurnaSiError ? Promise.resolve(ex) : Promise.resolve(null);
-  }
-}
-```
-
 ## Contributing
 
 Feel free to fork the repository and submit issues or pull requests. Contributions are welcome!
