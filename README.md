@@ -22,7 +22,7 @@ npm install ciaplu
 
 First, define your custom exceptions extending the base Error class:
 
-```
+```typescript
 class BoiaFausError extends Error {}
 
 class TurnaSiError extends Error {}
@@ -32,7 +32,7 @@ class TurnaSiError extends Error {}
 
 You can now use the match method to match exceptions and handle them accordingly:
 
-```
+```typescript
 import ciaplu from 'ciaplu';
 
 const ex = new BoiaFausError("No company licence found.");
