@@ -1,6 +1,6 @@
 {
   "name": "ciaplu",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A library for matching and handling exceptions with pattern-based logic in TypeScript.",
   "main": "lib/main.js",
   "types": "lib/main.d.ts",
@@ -16,7 +16,13 @@
     "type": "git",
     "url": "git://github.com/eagudio/ciaplu.git"
   },
-  "license": "ISC",
+  "keywords": [
+    "exception",
+    "matcher",
+    "error-handling",
+    "typescript"
+  ],
+  "license": "MIT",
   "devDependencies": {
     "tap": "^21.0.1",
     "ts-node": "^10.9.2"
