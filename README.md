@@ -6,7 +6,6 @@
 
 - **Custom Exception Handling**: Easily manage custom exceptions by creating custom classes that extend `Error`.
 - **Match Exceptions**: A powerful `match` method to handle multiple exceptions with a clear structure.
-- **Promise-based**: Works seamlessly with async/await to handle exceptions in asynchronous flows.
 
 ## Installation
 
@@ -58,12 +57,12 @@ Matches the provided exception ex to handle different exception types. You can c
 
 Feel free to fork the repository and submit issues or pull requests. Contributions are welcome!
 
-To contribute, you can follow these steps:
+To contribute, follow these steps:
 
 - Fork the repository on GitHub.
-- Clone your fork locally.
+- Clone your fork to your local machine.
 - Create a new branch for your changes.
-- Make the necessary changes, including adding tests if possible.
+- Make the necessary changes, ensuring to include tests when possible.
 - Commit your changes and push them to your fork.
-- Open a pull request describing your changes.
-- f you find any bugs or have suggestions for improvements, feel free to open an issue!
+- Open a pull request with a clear description of your changes.
+- If you encounter any bugs or have suggestions for improvement, don’t hesitate to open an issue!
