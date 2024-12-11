@@ -1,11 +1,12 @@
 {
   "name": "ciaplu",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A TypeScript library implementing Pattern Matching for declarative matching of values or types, with support for both synchronous and asynchronous handlers.",
   "main": "lib/main.js",
   "types": "lib/main.d.ts",
   "scripts": {
     "build": "tsc",
+    "prepublishOnly": "npm run build",
     "test": "tap test/tests --disable-coverage"
   },
   "files": [
