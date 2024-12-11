@@ -59,7 +59,7 @@ Defines a fallback handler to execute if no conditions match:
 Executes the first matching handler and returns its result. If no condition matches:
 
 - if an `.otherwise(handler)` is defined, it executes the fallback handler and returns its result.
-- if no fallback is defined, it returns `undefined`.
+- if no fallback is defined, it returns `null`.
 ## Contributing
 Contributions are welcome! To contribute:
 1. Fork the repository.
