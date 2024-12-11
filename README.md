@@ -18,7 +18,7 @@ Match a value and define actions based on the result:
 import { match } from 'ciaplu';
 
 async function example() {
-  const res = await match('bagnacauda')
+  const res = await match('bagna caoda')
     .with('taiarin', async () => await asyncFunction1())
     .with('bagna caoda', async () => await asyncFunction2())
     .otherwise(async () => await asyncCereaFunction())
