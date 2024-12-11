@@ -1,5 +1,3 @@
-import { ExceptionMatcher } from "./exceptionmatcher";
+import { Matcher } from "./matcher";
 
-const ciaplu = ExceptionMatcher
-
-export default ciaplu;
+export const match = (value: any) => new Matcher(value)

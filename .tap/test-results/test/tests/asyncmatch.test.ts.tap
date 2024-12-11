@@ -1,0 +1,12 @@
+TAP version 14
+# Subtest: should match and call async function
+    ok 1 - should be equal
+    1..1
+ok 1 - should match and call async function # time=9.882ms
+
+# Subtest: should not match
+    ok 1 - should be equal
+    1..1
+ok 2 - should not match # time=1.035ms
+
+1..2
