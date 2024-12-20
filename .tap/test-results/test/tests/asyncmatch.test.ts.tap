@@ -2,11 +2,36 @@ TAP version 14
 # Subtest: should match and call async function
     ok 1 - should be equal
     1..1
-ok 1 - should match and call async function # time=9.882ms
+ok 1 - should match and call async function # time=7.236ms
 
 # Subtest: should not match
     ok 1 - should be equal
     1..1
-ok 2 - should not match # time=1.035ms
+ok 2 - should not match # time=0.756ms
 
-1..2
+# Subtest: should match to one of two condition
+    ok 1 - should be equal
+    1..1
+ok 3 - should match to one of two condition # time=0.694ms
+
+# Subtest: should match to one of two condition
+    ok 1 - should be equal
+    1..1
+ok 4 - should match to one of two condition # time=0.987ms
+
+# Subtest: should match to one of two condition
+    ok 1 - should be equal
+    1..1
+ok 5 - should match to one of two condition # time=0.795ms
+
+# Subtest: should match to one of two condition
+    ok 1 - should be equal
+    1..1
+ok 6 - should match to one of two condition # time=0.769ms
+
+# Subtest: should match to one of two condition
+    ok 1 - should be equal
+    1..1
+ok 7 - should match to one of two condition # time=0.717ms
+
+1..7

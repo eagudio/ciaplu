@@ -2,26 +2,46 @@ TAP version 14
 # Subtest: should match one instance
     ok 1 - should be equal
     1..1
-ok 1 - should match one instance # time=8.066ms
+ok 1 - should match one instance # time=6.286ms
 
 # Subtest: should match to one of two instances
     ok 1 - should be equal
     1..1
-ok 2 - should match to one of two instances # time=0.847ms
+ok 2 - should match to one of two instances # time=0.643ms
 
 # Subtest: should not match any instances
     ok 1 - should be equal
     1..1
-ok 3 - should not match any instances # time=0.891ms
+ok 3 - should not match any instances # time=0.486ms
 
 # Subtest: should not match any instances without otherwise handler
     ok 1 - should be equal
     1..1
-ok 4 - should not match any instances without otherwise handler # time=1.197ms
+ok 4 - should not match any instances without otherwise handler # time=0.538ms
 
 # Subtest: should match one instance and throw error
     ok 1 - expected to reject
     1..1
-ok 5 - should match one instance and throw error # time=6.297ms
+ok 5 - should match one instance and throw error # time=6.444ms
 
-1..5
+# Subtest: should match one string
+    ok 1 - should be equal
+    1..1
+ok 6 - should match one string # time=0.659ms
+
+# Subtest: should match to one of two strings
+    ok 1 - should be equal
+    1..1
+ok 7 - should match to one of two strings # time=0.64ms
+
+# Subtest: should match to one of two condition
+    ok 1 - should be equal
+    1..1
+ok 8 - should match to one of two condition # time=0.689ms
+
+# Subtest: should no match any condition
+    ok 1 - should be equal
+    1..1
+ok 9 - should no match any condition # time=0.579ms
+
+1..9

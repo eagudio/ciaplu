@@ -34,3 +34,62 @@ t.test('should not match', async t => {
 
   t.equal(res, 'ciau');
 });
+
+t.test('should match to one of two condition', async t => {
+  const res = await match('string 2')
+    .when((value: string) => value === 'string 1', () => Promise.resolve('match with string 1!'))
+    .when((value: string) => value === 'string 2', () => Promise.resolve('match with string 2!'))
+    .resolve();
+
+  t.equal(res, 'match with string 2!');
+});
+
+t.test('should match to one of two condition', async t => {
+  const res = await match('string 4')
+    .when((value: string) => value === 'string 1', () => Promise.resolve('match with string 1!'))
+    .with('string 2', async () => Promise.resolve('match with string 2!'))
+    .when((value: string) => value === 'string 3', () => Promise.resolve('match with string 3!'))
+    .with('string 4', async () => Promise.resolve('match with string 4!'))
+    .resolve();
+
+  t.equal(res, 'match with string 4!');
+});
+
+t.test('should match to one of two condition', async t => {
+  const res = await match('string 1')
+    .when((value: string) => value === 'string 1', () => Promise.resolve('match with string 1!'))
+    .with('string 2', async () => Promise.resolve('match with string 2!'))
+    .when((value: string) => value === 'string 3', () => Promise.resolve('match with string 3!'))
+    .with('string 4', async () => Promise.resolve('match with string 4!'))
+    .otherwise(async () => Promise.resolve('no string matched!'))
+    .resolve();
+
+  t.equal(res, 'match with string 1!');
+});
+
+t.test('should match to one of two condition', async t => {
+  const res = await match('string 5')
+    .when((value: string) => value === 'string 1', () => Promise.resolve('match with string 1!'))
+    .with('string 2', async () => Promise.resolve('match with string 2!'))
+    .when((value: string) => value === 'string 3', () => Promise.resolve('match with string 3!'))
+    .with('string 4', async () => Promise.resolve('match with string 4!'))
+    .otherwise(async () => Promise.resolve('no string matched!'))
+    .resolve();
+
+  t.equal(res, 'no string matched!');
+});
+
+t.test('should match to one of two condition', async t => {
+  const str: string = 'string 5';
+
+  const res = await match('string 123456')
+    .extrat((value: string) => value.length)
+    .when((length: number) => length === 8, () => Promise.resolve('match 1!'))
+    .with(9, async () => Promise.resolve('match 2!'))
+    .when((length: number) => length > 10 && length < 12, () => Promise.resolve('match 3!'))
+    .with(13, async () => Promise.resolve('match 4!'))
+    .otherwise(async () => Promise.resolve('no matched!'))
+    .resolve();
+
+  t.equal(res, 'match 4!');
+});
