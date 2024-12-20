@@ -1,8 +1,6 @@
 export class Matcher<T> {
   private _value: T;
-  private _conditions: any[] = [];
-  private handled = false;
-  private handler: any = (value: any) => null;
+  private _steps: any[] = [];
   
   constructor(value: T) {
     this._value = value;
@@ -12,11 +10,7 @@ export class Matcher<T> {
     value: any,
     handler: () => Promise<any> | any
   ): Matcher<T> {
-    if (!this.handled && this._value === value) {
-      this.handled = true;
-      
-      this.handler = handler;
-    }
+    this._steps.push({type: 'with', value, handler});
 
     return this;
   }
@@ -25,11 +19,7 @@ export class Matcher<T> {
     value: new (...args: any[]) => U,
     handler: () => Promise<any> | any
   ): Matcher<T> {
-    if (!this.handled && this._value instanceof value) {
-      this.handled = true;
-      
-      this.handler = handler;
-    }
+    this._steps.push({type: 'withType', value, handler});
 
     return this;
   }
@@ -38,45 +28,76 @@ export class Matcher<T> {
     condition: (value: T) => Promise<boolean> | boolean,
     handler: () => Promise<any> | any
   ): Matcher<T> {
-    this._conditions.push({condition, handler});
+    this._steps.push({type: 'when', condition, handler});
 
     return this;
   }
 
   extrat(
-    extractor: (value: T) => any
+    extractor: (value: T) => Promise<any> | any
   ): Matcher<T> {
-    this._value = extractor(this._value);
+    this._steps.push({type: 'extrat', extractor});
+
+    return this;
+  }
+
+  perform(
+    matcher: () => Promise<any> | any
+  ): Matcher<T> {
+    this._steps.push({type: 'perform', matcher});
 
     return this;
   }
 
   otherwise(handler: () => Promise<any> | any): Matcher<T> {
-    if (!this.handled) {
-      if (this._conditions.length === 0) {
-        this.handled = true;
-      }
-
-      this.handler = handler;
-    }
+    this._steps.push({type: 'otherwise', handler});
     
     return this;
   }
 
   async resolve() {
-    if (this._conditions.length > 0 && !this.handled) {
-      for (let i = 0; i < this._conditions.length; i++) {
-        const condition = this._conditions[i].condition;
-        const handler = this._conditions[i].handler;
+    let withMatcher = (value1: any, value2: any) => Promise.resolve(value1 === value2);
 
-        const result: boolean = await condition(this._value);
-        
-        if (result === true) {
-          return await handler(this._value);
+    for (let i = 0; i < this._steps.length; i++) {
+      const step = this._steps[i];
+
+      switch (step.type) {
+        case 'with': {
+          const result: boolean = await withMatcher(this._value, step.value);
+
+          if (result === true) {
+            return await step.handler();
+          }
+          break;
+        }
+        case 'withType': {
+          if (this._value instanceof step.value) {
+            return await step.handler();
+          }
+          break;
+        }
+        case 'when': {
+          const result: boolean = await step.condition(this._value);
+          
+          if (result === true) {
+            return await step.handler();
+          }
+          break;
+        }
+        case 'extrat': {
+          this._value = await step.extractor(this._value);
+          break;
+        }
+        case 'perform': {
+          withMatcher = await step.matcher;
+          break;
+        }
+        case 'otherwise': {
+          return await step.handler();
         }
       }
     }
 
-    return await this.handler(this._value);
+    return null;
   }
 }

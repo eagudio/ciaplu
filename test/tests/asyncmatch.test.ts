@@ -37,8 +37,8 @@ t.test('should not match', async t => {
 
 t.test('should match to one of two condition', async t => {
   const res = await match('string 2')
-    .when((value: string) => value === 'string 1', () => Promise.resolve('match with string 1!'))
-    .when((value: string) => value === 'string 2', () => Promise.resolve('match with string 2!'))
+    .when((value: string) => Promise.resolve(value === 'string 1'), () => Promise.resolve('match with string 1!'))
+    .when((value: string) => Promise.resolve(value === 'string 2'), () => Promise.resolve('match with string 2!'))
     .resolve();
 
   t.equal(res, 'match with string 2!');
@@ -80,13 +80,25 @@ t.test('should match to one of two condition', async t => {
 });
 
 t.test('should match to one of two condition', async t => {
-  const str: string = 'string 5';
-
   const res = await match('string 123456')
-    .extrat((value: string) => value.length)
-    .when((length: number) => length === 8, () => Promise.resolve('match 1!'))
+    .extrat((value: string) => Promise.resolve(value.length))
+    .when((length: number) => Promise.resolve(length === 8), () => Promise.resolve('match 1!'))
     .with(9, async () => Promise.resolve('match 2!'))
-    .when((length: number) => length > 10 && length < 12, () => Promise.resolve('match 3!'))
+    .when((length: number) => Promise.resolve(length > 10 && length < 12), () => Promise.resolve('match 3!'))
+    .with(13, async () => Promise.resolve('match 4!'))
+    .otherwise(async () => Promise.resolve('no matched!'))
+    .resolve();
+
+  t.equal(res, 'match 4!');
+});
+
+t.test('should match to one of two condition', async t => {
+  const res = await match('string 123456')
+    .extrat((value: string) => Promise.resolve(value.length))
+    .perform(async (length: number, value: number) => Promise.resolve(length === value))
+    .when((length: number) => Promise.resolve(length === 8), () => Promise.resolve('match 1!'))
+    .with(9, async () => Promise.resolve('match 2!'))
+    .when((length: number) => Promise.resolve(length > 10 && length < 12), () => Promise.resolve('match 3!'))
     .with(13, async () => Promise.resolve('match 4!'))
     .otherwise(async () => Promise.resolve('no matched!'))
     .resolve();
