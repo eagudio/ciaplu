@@ -33,18 +33,18 @@ export class Matcher<T> {
     return this;
   }
 
-  extrat(
+  extracting(
     extractor: (value: T) => Promise<any> | any
   ): Matcher<T> {
-    this._steps.push({type: 'extrat', extractor});
+    this._steps.push({type: 'extracting', extractor});
 
     return this;
   }
 
-  perform(
-    matcher: () => Promise<any> | any
+  performing(
+    matcher: (value1: any, value2: any) => Promise<boolean> | boolean
   ): Matcher<T> {
-    this._steps.push({type: 'perform', matcher});
+    this._steps.push({type: 'performing', matcher});
 
     return this;
   }
@@ -84,11 +84,11 @@ export class Matcher<T> {
           }
           break;
         }
-        case 'extrat': {
+        case 'extracting': {
           this._value = await step.extractor(this._value);
           break;
         }
-        case 'perform': {
+        case 'performing': {
           withMatcher = await step.matcher;
           break;
         }
