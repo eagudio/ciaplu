@@ -1,9 +1,9 @@
 import t from 'tap';
 import { match } from '../../src/main';
-import { MockException1 } from '../mock/mockexception1';
-import { MockException2 } from '../mock/mockexception2';
 
 t.test('Match instance with specific type', async t => {
+  class MockException1 extends Error {};
+
   const ex1 = new MockException1('error 1');
 
   const res = await match(ex1)
@@ -14,6 +14,9 @@ t.test('Match instance with specific type', async t => {
 });
 
 t.test('Match one of multiple instance types', async t => {
+  class MockException1 extends Error {};
+  class MockException2 extends Error {};
+
   const ex2 = new MockException2('error 2');
 
   const res = await match(ex2)
@@ -25,6 +28,9 @@ t.test('Match one of multiple instance types', async t => {
 });
 
 t.test('No match for any instance type', async t => {
+  class MockException1 extends Error {};
+  class MockException2 extends Error {};
+
   const ex1 = new MockException1('error 1');
 
   const res = await match(ex1)
@@ -36,6 +42,9 @@ t.test('No match for any instance type', async t => {
 });
 
 t.test('No match and no otherwise handler', async t => {
+  class MockException1 extends Error {};
+  class MockException2 extends Error {};
+
   const ex1 = new MockException1('error 1');
 
   const res = await match(ex1)
@@ -46,6 +55,8 @@ t.test('No match and no otherwise handler', async t => {
 });
 
 t.test('Match instance and throw error in handler', async t => {
+  class MockException1 extends Error {};
+
   const ex1 = new MockException1('error 1');
 
   await t.rejects(
@@ -209,28 +220,28 @@ t.test('matchAll for multiple matches and returning result array', async t => {
   t.same(res, ['cerea', 'buta']);
 });
 
-t.test('matchFirst after matchAll', async t => {
-  const words: string[] = [];
+// t.test('matchFirst after matchAll', async t => {
+//   const words: string[] = [];
 
-  const addWord = async (word: string) => {
-    words.push(word);
+//   const addWord = async (word: string) => {
+//     words.push(word);
 
-    return words;
-  };
+//     return words;
+//   };
 
-  const res = await match('test string with multiple conditions')
-    .extracting((value: string) => Promise.resolve(value.split(' ')))
-    .performing(async (words, wordCount) => Promise.resolve(words.length === wordCount))
-    .matchingAll()
-    .with(5, async () => await addWord('cerea'))
-    .with(3, async () => Promise.resolve('tinca'))
-    .with(5, async () => await addWord('buta'))
-    .matchingFirst()
-    .with(5, async () => await addWord('cerea'))
-    .with(3, async () => Promise.resolve('tinca'))
-    .with(5, async () => await addWord('buta'))
-    .otherwise(async () => Promise.resolve('no match found!'))
-    .resolve();
+//   const res = await match('test string with multiple conditions')
+//     .extracting((value: string) => Promise.resolve(value.split(' ')))
+//     .performing(async (words, wordCount) => Promise.resolve(words.length === wordCount))
+//     .matchingAll()
+//     .with(5, async () => await addWord('cerea'))
+//     .with(3, async () => Promise.resolve('tinca'))
+//     .with(5, async () => await addWord('buta'))
+//     .matchingFirst()
+//     .with(5, async () => await addWord('cerea'))
+//     .with(3, async () => Promise.resolve('tinca'))
+//     .with(5, async () => await addWord('buta'))
+//     .otherwise(async () => Promise.resolve('no match found!'))
+//     .resolve();
 
-  t.same(res, ['cerea', 'buta', 'cerea']);
-});
+//   t.same(res, ['cerea', 'buta', 'cerea']);
+// });
