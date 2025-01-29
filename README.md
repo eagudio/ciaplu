@@ -1,34 +1,31 @@
 # Ciaplu - Pattern Matching Library
-`Ciaplu` is a simple TypeScript library that implements **Pattern Matching** to declaratively match values or types. It allows you to define handlers for both synchronous and asynchronous operations, making it easy to structure your code for complex conditional logic. Whether you’re matching basic values or more complex types, `Ciaplu` provides a clean and powerful way to handle various conditions with a minimalistic API.
+`Ciaplu` is a TypeScript library that implements **Pattern Matching** to declaratively match values or types. It allows you to define handlers for both synchronous and asynchronous operations, making it easy to structure your code for complex conditional logic. Whether you're matching basic values or more complex types, `Ciaplu` provides a clean and powerful way to handle various conditions with a minimalistic API. It is also well-suited for AI applications such as managing prompts and conditional logic for dynamic actions.
 ## Features
 - **Support for synchronous and asynchronous functions**: Execute actions based on the matched value or condition.
 - **Clean API**: Use `match`, `with`, and `resolve` methods for readable and maintainable code.
-- **Versatile**: Ideal for use cases such as exception handling, value matching, or dynamic action selection.
+- **Versatile**: Ideal for use cases such as exception handling, value matching, or dynamic action selection and AI integration..
 ## Installation
 Install `ciaplu` using npm:
 
 ```bash
 npm install ciaplu
 ```
-### Usage Examples
-## Matching Values Asynchronously
-Match a value and define actions based on the result:
-
+## Usage Examples
+### Matching String Values
 ```Typescript
 import { match } from 'ciaplu';
 
 async function example() {
-  const res = await match('bagna caoda')
+  const result = await match('bagna cauda')
     .with('taiarin', async () => await asyncFunction1())
-    .with('bagna caoda', async () => await asyncFunction2())
+    .with('bagna cauda', async () => await asyncFunction2())
     .otherwise(async () => await asyncCereaFunction())
     .resolve();
 
-  console.log(res);
+  console.log(result); // Output: 'bagna cauda'
 }
 ```
-### Handling Exceptions
-Use `ciaplu` to match exceptions and handle them gracefully:
+### Matching Class Instances
 ```Typescript
 import { match } from 'ciaplu';
 
@@ -41,8 +38,30 @@ try {
     .otherwise(async () => 'Cerea!')
     .resolve();
 
-  console.log(res);
+  console.log(res); // Output: 'Handled BoiaFausError'
 }
+```
+### Collecting Multiple Matches with .matchingAll() and .returningAll()
+```Typescript
+import { match } from 'ciaplu';
+
+const res = await match('test string with multiple conditions')
+  .extracting((value: string) => Promise.resolve(value.split(' ')))
+  .performing(async (words, wordCount) => Promise.resolve(words.length === wordCount))
+  .matchingAll()
+  .with(5, async () => Promise.resolve('cerea'))
+  .with(3, async () => Promise.resolve('tinca'))
+  .with(5, async () => Promise.resolve('buta'))
+  .otherwise(async () => Promise.resolve('no match found!'))
+  .returningAll()
+  .resolve();
+
+console.log(res);
+// Output:
+// [
+//   "cerea",
+//   "buta",
+// ]
 ```
 ## API
 ### `match(value)`
@@ -52,12 +71,33 @@ Defines a condition and its corresponding handler:
 - condition: A value or class to match against.
 - handler: A function to execute if the condition is met. It can be synchronous or asynchronous.
 Chain multiple .with methods to handle different cases.
+### `.withType(classConstructor, handler)`
+Defines a condition that matches instances of a class:
+- classConstructor: The class to match.
+- handler: A function to execute when an instance of the class is matched.
+### `.when(condition, handler)`
+Defines a condition to match based on a function that returns a boolean or a promise:
+- condition: A function that returns true or false.
+- handler: A function to execute when the condition is met.
+### `.extracting(extractor)`
+Extracts a value from the matched input:
+- extractor: A function that takes the input value and returns a transformed result.
+### `.performing(matcher)`
+Changes the matcher to be applied from that point forward:
+- matcher: A function that determines how subsequent matching will be applied.
+### `matchingAll()`
+Executes all handlers that match the condition. Useful for cases where you want to handle multiple matches.
+### `matchingFirst()`
+Executes only the first handler that matches the condition. Useful for cases where you only need to handle the first match.
+### `returningAll()`
+Returns an array of results when using `matchingAll()`, allowing you to capture all matched values.
+### `returningLast()`
+Returns only the last matched value when using `matchingFirst()`, capturing only the final result.
 ### `.otherwise(handler)`
 Defines a fallback handler to execute if no conditions match:
 - handler: A function to execute as a fallback. It can be synchronous or asynchronous.
 ### `.resolve()`
 Executes the first matching handler and returns its result. If no condition matches:
-
 - if an `.otherwise(handler)` is defined, it executes the fallback handler and returns its result.
 - if no fallback is defined, it returns `null`.
 ## Contributing

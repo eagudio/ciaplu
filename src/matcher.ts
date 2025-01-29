@@ -6,6 +6,18 @@ export class Matcher<T> {
     this._value = value;
   }
 
+  matchingFirst(): Matcher<T> {
+    this._steps.push({type: 'matchingFirst', value: true});
+    
+    return this;
+  }
+
+  matchingAll(): Matcher<T> {
+    this._steps.push({type: 'matchingFirst', value: false});
+
+    return this;
+  }
+
   with(
     value: any,
     handler: () => Promise<any> | any
@@ -55,32 +67,77 @@ export class Matcher<T> {
     return this;
   }
 
+  returningFirst(): Matcher<T> {
+    this._steps.push({type: 'returningFirst', value: true});
+    
+    return this;
+  }
+
+  returningAll(): Matcher<T> {
+    this._steps.push({type: 'returningFirst', value: false});
+    
+    return this;
+  }
+
   async resolve() {
+    let matchFirst: boolean = true;
+    let returnFirst: boolean = true;
     let withMatcher = (value1: any, value2: any) => Promise.resolve(value1 === value2);
+    //let result: any = null;
+    let results: any[] = [];
+    let matchFound = false;
 
     for (let i = 0; i < this._steps.length; i++) {
       const step = this._steps[i];
 
       switch (step.type) {
+        case 'matchingFirst': {
+          matchFirst = step.value;
+          break;
+        }
         case 'with': {
-          const result: boolean = await withMatcher(this._value, step.value);
+          const matched: boolean = await withMatcher(this._value, step.value);
 
-          if (result === true) {
-            return await step.handler();
+          if (matched === true) {
+            matchFound = true;
+
+            if (matchFirst) {
+              return await step.handler();
+            }
+
+            const result = await step.handler();
+
+            results.push(result);
           }
           break;
         }
         case 'withType': {
           if (this._value instanceof step.value) {
-            return await step.handler();
+            matchFound = true;
+
+            if (matchFirst) {
+              return await step.handler();
+            }
+
+            const result = await step.handler();
+
+            results.push(result);
           }
           break;
         }
         case 'when': {
-          const result: boolean = await step.condition(this._value);
+          const matched: boolean = await step.condition(this._value);
           
-          if (result === true) {
-            return await step.handler();
+          if (matched === true) {
+            matchFound = true;
+
+            if (matchFirst) {
+              return await step.handler();
+            }
+            
+            const result = await step.handler();
+
+            results.push(result);
           }
           break;
         }
@@ -93,11 +150,26 @@ export class Matcher<T> {
           break;
         }
         case 'otherwise': {
-          return await step.handler();
+          if (!matchFound) {
+            return await step.handler();
+          }
+          break;
+        }
+        case 'returningFirst': {
+          returnFirst = step.value;
+          break;
         }
       }
     }
 
-    return null;
+    if (returnFirst) {
+      if (results.length === 0) {
+        return null;
+      }
+
+      return results[0];
+    }
+    
+    return results;
   }
 }
