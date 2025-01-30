@@ -1,7 +1,7 @@
-import { Resolver } from "./resolver";
+import { Statement } from "./statement";
 import { Context } from "./context";
 
-export class MatchingFirstResolver extends Resolver {
+export class MatchingFirstStatement extends Statement {
   private _matchingFirst: boolean;
 
   constructor(matchingFirst: boolean) {
@@ -10,7 +10,7 @@ export class MatchingFirstResolver extends Resolver {
     this._matchingFirst = matchingFirst;
   }
 
-  async resolve(context: Context): Promise<void> {
+  async handle(context: Context): Promise<void> {
     context.matchingFirst = this._matchingFirst;
   }
 }

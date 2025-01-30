@@ -1,7 +1,7 @@
-import { Resolver } from "./resolver";
+import { Statement } from "./statement";
 import { Context } from "./context";
 
-export class WhenResolver extends Resolver {
+export class WhenStatement extends Statement {
   private _condition: any;
   private _handler: () => Promise<any> | any;
 
@@ -12,7 +12,7 @@ export class WhenResolver extends Resolver {
     this._handler = handler;
   }
 
-  async resolve(context: Context): Promise<void> {
+  async handle(context: Context): Promise<void> {
     const matched: boolean = await this._condition(context.value);
 
     if (!matched) {

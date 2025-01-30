@@ -1,30 +1,30 @@
-import { ExtractingResolver } from "./resolver/extractingresolver";
-import { MatchingFirstResolver } from "./resolver/matchingfirstresolver";
-import { OtherwiseResolver } from "./resolver/otherwiseresolver";
-import { PerformingResolver } from "./resolver/performingresolver";
-import { Resolver } from "./resolver/resolver";
-import { Context } from "./resolver/context";
-import { ReturningFirstResolver } from "./resolver/returningfirstresolver";
-import { WhenResolver } from "./resolver/whenresolver";
-import { WithResolver } from "./resolver/withresolver";
-import { WithTypeResolver } from "./resolver/withtyperesolver";
+import { ExtractingStatement } from "./statements/extractingstatement";
+import { MatchingFirstStatement } from "./statements/matchingfirststatement";
+import { OtherwiseStatement } from "./statements/otherwisestatement";
+import { PerformingStatement } from "./statements/performingstatement";
+import { Statement } from "./statements/statement";
+import { Context } from "./statements/context";
+import { ReturningFirstStatement } from "./statements/returningfirststatement";
+import { WhenStatement } from "./statements/whenstatement";
+import { WithStatement } from "./statements/withstatement";
+import { WithTypeStatement } from "./statements/withtypestatement";
 
 export class Matcher<T> {
   private _value: T;
-  private _resolvers: Resolver[] = [];
+  private _statements: Statement[] = [];
   
   constructor(value: T) {
     this._value = value;
   }
 
   matchingFirst(): Matcher<T> {
-    this._resolvers.push(new MatchingFirstResolver(true));
+    this._statements.push(new MatchingFirstStatement(true));
     
     return this;
   }
 
   matchingAll(): Matcher<T> {
-    this._resolvers.push(new MatchingFirstResolver(false));
+    this._statements.push(new MatchingFirstStatement(false));
 
     return this;
   }
@@ -33,7 +33,7 @@ export class Matcher<T> {
     value: any,
     handler: () => Promise<any> | any
   ): Matcher<T> {
-    this._resolvers.push(new WithResolver(value, handler));
+    this._statements.push(new WithStatement(value, handler));
 
     return this;
   }
@@ -42,7 +42,7 @@ export class Matcher<T> {
     value: new (...args: any[]) => U,
     handler: () => Promise<any> | any
   ): Matcher<T> {
-    this._resolvers.push(new WithTypeResolver(value, handler));
+    this._statements.push(new WithTypeStatement(value, handler));
 
     return this;
   }
@@ -51,7 +51,7 @@ export class Matcher<T> {
     condition: (value: T) => Promise<boolean> | boolean,
     handler: () => Promise<any> | any
   ): Matcher<T> {
-    this._resolvers.push(new WhenResolver(condition, handler));
+    this._statements.push(new WhenStatement(condition, handler));
 
     return this;
   }
@@ -59,7 +59,7 @@ export class Matcher<T> {
   extracting(
     extractor: (value: T) => Promise<any> | any
   ): Matcher<T> {
-    this._resolvers.push(new ExtractingResolver(extractor));
+    this._statements.push(new ExtractingStatement(extractor));
 
     return this;
   }
@@ -67,61 +67,42 @@ export class Matcher<T> {
   performing(
     matcher: (value1: any, value2: any) => Promise<boolean> | boolean
   ): Matcher<T> {
-    this._resolvers.push(new PerformingResolver(matcher));
+    this._statements.push(new PerformingStatement(matcher));
 
     return this;
   }
 
   otherwise(handler: () => Promise<any> | any): Matcher<T> {
-    this._resolvers.push(new OtherwiseResolver(handler));
+    this._statements.push(new OtherwiseStatement(handler));
     
     return this;
   }
 
   returningFirst(): Matcher<T> {
-    this._resolvers.push(new ReturningFirstResolver(true));
+    this._statements.push(new ReturningFirstStatement(true));
     
     return this;
   }
 
   returningAll(): Matcher<T> {
-    this._resolvers.push(new ReturningFirstResolver(false));
+    this._statements.push(new ReturningFirstStatement(false));
     
     return this;
   }
 
   async resolve() {
-    const context: Context = new Context(
-      this._value,
-      (value1: any, value2: any) => Promise.resolve(value1 === value2),
-      true,
-      true,
-      [],
-      false
-    );
+    const context: Context = new Context(this._value);
 
-    for (let i = 0; i < this._resolvers.length; i++) {
-      const resolver = this._resolvers[i];
+    for (let i = 0; i < this._statements.length; i++) {
+      const statement = this._statements[i];
 
-      await resolver.resolve(context);
+      await statement.handle(context);
 
-      if (context.matchingFirst && context.matched) {
-        if (context.results.length === 0) {
-          return null;
-        }
-
-        return context.results[0];
+      if (context.resolve()) {
+        break;
       }
     }
 
-    if (context.returningFirst) {
-      if (context.results.length === 0) {
-        return null;
-      }
-
-      return context.results[0];
-    }
-
-    return context.results;
+    return context.returnValue;
   }
 }

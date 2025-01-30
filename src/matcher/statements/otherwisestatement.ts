@@ -1,7 +1,7 @@
-import { Resolver } from "./resolver";
+import { Statement } from "./statement";
 import { Context } from "./context";
 
-export class OtherwiseResolver extends Resolver {
+export class OtherwiseStatement extends Statement {
   private _handler: () => Promise<any> | any;
 
   constructor(handler: () => Promise<any> | any) {
@@ -10,7 +10,7 @@ export class OtherwiseResolver extends Resolver {
     this._handler = handler;
   }
 
-  async resolve(context: Context): Promise<void> {
+  async handle(context: Context): Promise<void> {
     if (context.matched) {
       return;
     }

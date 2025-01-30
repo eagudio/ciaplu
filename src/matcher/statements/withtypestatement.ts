@@ -1,7 +1,7 @@
-import { Resolver } from "./resolver";
+import { Statement } from "./statement";
 import { Context } from "./context";
 
-export class WithResolver extends Resolver {
+export class WithTypeStatement extends Statement {
   private _value: any;
   private _handler: () => Promise<any> | any;
 
@@ -12,10 +12,8 @@ export class WithResolver extends Resolver {
     this._handler = handler;
   }
 
-  async resolve(context: Context): Promise<void> {
-    const matched: boolean = await context.matcher(context.value, this._value);
-
-    if (!matched) {
+  async handle(context: Context): Promise<void> {
+    if (!(context.value instanceof this._value)) {
       context.matched = false;
 
       return;
@@ -23,8 +21,8 @@ export class WithResolver extends Resolver {
 
     context.matched = true;
 
-    const resulte = await this._handler();
+    const result = await this._handler();
 
-    context.results.push(resulte);
+    context.results.push(result);
   }
 }

@@ -1,7 +1,7 @@
-import { Resolver } from "./resolver";
+import { Statement } from "./statement";
 import { Context } from "./context";
 
-export class PerformingResolver extends Resolver {
+export class PerformingStatement extends Statement {
   private _matcher: any;
 
   constructor(matcher: any) {
@@ -10,7 +10,7 @@ export class PerformingResolver extends Resolver {
     this._matcher = matcher;
   }
 
-  async resolve(context: Context): Promise<void> {
+  async handle(context: Context): Promise<void> {
     context.matcher = this._matcher;
   }
 }

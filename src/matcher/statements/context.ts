@@ -5,14 +5,16 @@ export class Context {
   private _matchingFirst: boolean;
   private _results: any[];
   private _matched: boolean;
+  private _returnValue: any;
 
-  constructor(value: any, matcher: any, matchingFirst: boolean, returningFirst: boolean, results: any[], matched: boolean) {
+  constructor(value: any) {
     this._value = value;
-    this._matcher = matcher;
-    this._matchingFirst = matchingFirst;
-    this._returningFirst = returningFirst;
-    this._results = results;
-    this._matched = matched;
+    this._matcher = (value1: any, value2: any) => Promise.resolve(value1 === value2);
+    this._matchingFirst = true;
+    this._returningFirst = true;
+    this._results = [];
+    this._matched = false;
+    this._returnValue = null;
   }
 
   get value(): any {
@@ -61,5 +63,39 @@ export class Context {
 
   set matched(matched: boolean) {
     this._matched = matched;
+  }
+
+  get returnValue(): any { 
+    return this._returnValue;
+  }
+
+  set returnValue(returnValue: any) {
+    this._returnValue = returnValue;
+  }
+
+  resolve(): boolean {
+    let resolved: boolean = false;
+
+    if (this.matchingFirst && this.matched) {
+      resolved = true;
+
+      if (this.results.length === 0) {
+        this.returnValue = null;
+      } else {
+        this.returnValue = this.results[0];
+      }
+    }
+
+    if (this.returningFirst) {
+      if (this.results.length === 0) {
+        this.returnValue = null;
+      } else {
+        this.returnValue = this.results[0];
+      }
+    } else {
+      this.returnValue = this.results;
+    }
+
+    return resolved;
   }
 }
