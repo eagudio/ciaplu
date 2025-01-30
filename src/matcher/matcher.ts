@@ -9,12 +9,14 @@ import { WhenStatement } from "./statements/whenstatement";
 import { WithStatement } from "./statements/withstatement";
 import { WithTypeStatement } from "./statements/withtypestatement";
 
-export class Matcher<T> {
-  private _value: T;
+export class Matcher<T> extends Promise<any> {
   private _statements: Statement[] = [];
+  private _context: Context;
   
   constructor(value: T) {
-    this._value = value;
+    super(() => {});
+    
+    this._context = new Context(value);
   }
 
   matchingFirst(): Matcher<T> {
@@ -90,19 +92,41 @@ export class Matcher<T> {
     return this;
   }
 
+  /**
+    * @deprecated This method is no longer necessary and should not be used.
+  */
   async resolve() {
-    const context: Context = new Context(this._value);
-
     for (let i = 0; i < this._statements.length; i++) {
       const statement = this._statements[i];
 
-      await statement.handle(context);
+      await statement.handle(this._context);
 
-      if (context.resolve()) {
+      if (this._context.resolve()) {
         break;
       }
     }
 
-    return context.returnValue;
+    return this._context.returnValue;
+  }
+
+  then<TResult1 = T, TResult2 = never>(
+    onFulfilled?: ((value: any) => TResult1 | PromiseLike<TResult1>) | null,
+    onRejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null
+  ): Promise<TResult1 | TResult2> {
+    return this._resolve().then(onFulfilled, onRejected);
+  }
+
+  private async _resolve() {
+    for (let i = 0; i < this._statements.length; i++) {
+      const statement = this._statements[i];
+
+      await statement.handle(this._context);
+
+      if (this._context.resolve()) {
+        break;
+      }
+    }
+
+    return this._context.returnValue;
   }
 }

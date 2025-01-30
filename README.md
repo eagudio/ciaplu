@@ -2,7 +2,7 @@
 `Ciaplu` is a TypeScript library that implements **Pattern Matching** to declaratively match values or types. It allows you to define handlers for both synchronous and asynchronous operations, making it easy to structure your code for complex conditional logic. Whether you're matching basic values or more complex types, `Ciaplu` provides a clean and powerful way to handle various conditions with a minimalistic API. It is also well-suited for AI applications such as managing prompts and conditional logic for dynamic actions.
 ## Features
 - **Support for synchronous and asynchronous functions**: Execute actions based on the matched value or condition.
-- **Clean API**: Use `match`, `with`, and `resolve` methods for readable and maintainable code.
+- **Clean API**: Use `match`, `with`, e `when` methods for readable and maintainable code.
 - **Versatile**: Ideal for use cases such as exception handling, value matching, or dynamic action selection and AI integration..
 ## Installation
 Install `ciaplu` using npm:
@@ -19,8 +19,7 @@ async function example() {
   const result = await match('bagna cauda')
     .with('taiarin', async () => await asyncFunction1())
     .with('bagna cauda', async () => await asyncFunction2())
-    .otherwise(async () => await asyncCereaFunction())
-    .resolve();
+    .otherwise(async () => await asyncCereaFunction());
 
   console.log(result); // Output: 'bagna cauda'
 }
@@ -35,8 +34,7 @@ try {
   const res = await match(ex)
     .with(TurnaSiError, () => 'Handled TurnaSiError')
     .with(BoiaFausError, () => 'Handled BoiaFausError')
-    .otherwise(async () => 'Cerea!')
-    .resolve();
+    .otherwise(async () => 'Cerea!');
 
   console.log(res); // Output: 'Handled BoiaFausError'
 }
@@ -53,8 +51,7 @@ const res = await match('test string with multiple conditions')
   .with(3, async () => Promise.resolve('tinca'))
   .with(5, async () => Promise.resolve('buta'))
   .otherwise(async () => Promise.resolve('no match found!'))
-  .returningAll()
-  .resolve();
+  .returningAll();
 
 console.log(res);
 // Output:
@@ -96,10 +93,6 @@ Returns only the last matched value when using `matchingFirst()`, capturing only
 ### `.otherwise(handler)`
 Defines a fallback handler to execute if no conditions match:
 - handler: A function to execute as a fallback. It can be synchronous or asynchronous.
-### `.resolve()`
-Executes the first matching handler and returns its result. If no condition matches:
-- if an `.otherwise(handler)` is defined, it executes the fallback handler and returns its result.
-- if no fallback is defined, it returns `null`.
 ## Contributing
 Contributions are welcome! To contribute:
 1. Fork the repository.
