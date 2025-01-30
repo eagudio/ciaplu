@@ -1,5 +1,5 @@
 import { Resolver } from "./resolver";
-import { Result } from "./result";
+import { Context } from "./context";
 
 export class OtherwiseResolver extends Resolver {
   private _handler: () => Promise<any> | any;
@@ -10,11 +10,13 @@ export class OtherwiseResolver extends Resolver {
     this._handler = handler;
   }
 
-  async resolve(result: Result): Promise<void> {
-    const r = await this._handler();
+  async resolve(context: Context): Promise<void> {
+    if (context.matched) {
+      return;
+    }
 
-    result.matched = true;
+    const result = await this._handler();
 
-    result.results.push(r);
+    context.results.push(result);
   }
 }

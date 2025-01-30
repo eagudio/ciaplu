@@ -1,5 +1,5 @@
-import { Result } from "./result";
+import { Context } from "./context";
 
 export abstract class Resolver {
-  abstract resolve(result: Result): Promise<void>;
+  abstract resolve(context: Context): Promise<void>;
 }

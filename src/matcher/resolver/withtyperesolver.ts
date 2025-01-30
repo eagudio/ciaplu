@@ -1,5 +1,5 @@
 import { Resolver } from "./resolver";
-import { Result } from "./result";
+import { Context } from "./context";
 
 export class WithTypeResolver extends Resolver {
   private _value: any;
@@ -12,17 +12,17 @@ export class WithTypeResolver extends Resolver {
     this._handler = handler;
   }
 
-  async resolve(result: Result): Promise<void> {
-    if (!(result.value instanceof this._value)) {
-      result.matched = false;
+  async resolve(context: Context): Promise<void> {
+    if (!(context.value instanceof this._value)) {
+      context.matched = false;
 
       return;
     }
 
-    result.matched = true;
+    context.matched = true;
 
-    const r = await this._handler();
+    const result = await this._handler();
 
-    result.results.push(r);
+    context.results.push(result);
   }
 }

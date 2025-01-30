@@ -1,4 +1,4 @@
-export class Result {
+export class Context {
   private _value: any;
   private _matcher: any;
   private _returningFirst: boolean;

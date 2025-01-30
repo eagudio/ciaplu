@@ -220,28 +220,28 @@ t.test('matchAll for multiple matches and returning result array', async t => {
   t.same(res, ['cerea', 'buta']);
 });
 
-// t.test('matchFirst after matchAll', async t => {
-//   const words: string[] = [];
+t.test('matchFirst after matchAll', async t => {
+  const words: string[] = [];
 
-//   const addWord = async (word: string) => {
-//     words.push(word);
+  const addWord = async (word: string) => {
+    words.push(word);
 
-//     return words;
-//   };
+    return words;
+  };
 
-//   const res = await match('test string with multiple conditions')
-//     .extracting((value: string) => Promise.resolve(value.split(' ')))
-//     .performing(async (words, wordCount) => Promise.resolve(words.length === wordCount))
-//     .matchingAll()
-//     .with(5, async () => await addWord('cerea'))
-//     .with(3, async () => Promise.resolve('tinca'))
-//     .with(5, async () => await addWord('buta'))
-//     .matchingFirst()
-//     .with(5, async () => await addWord('cerea'))
-//     .with(3, async () => Promise.resolve('tinca'))
-//     .with(5, async () => await addWord('buta'))
-//     .otherwise(async () => Promise.resolve('no match found!'))
-//     .resolve();
+  const res = await match('test string with multiple conditions')
+    .extracting((value: string) => Promise.resolve(value.split(' ')))
+    .performing(async (words, wordCount) => Promise.resolve(words.length === wordCount))
+    .matchingAll()
+    .with(5, async () => await addWord('cerea'))
+    .with(3, async () => Promise.resolve('tinca'))
+    .with(5, async () => await addWord('buta'))
+    .with(5, async () => await addWord('cerea'))
+    .matchingFirst()
+    .with(3, async () => Promise.resolve('tinca'))
+    .with(5, async () => await addWord('buta'))
+    .otherwise(async () => Promise.resolve('no match found!'))
+    .resolve();
 
-//   t.same(res, ['cerea', 'buta', 'cerea']);
-// });
+  t.same(res, ['cerea', 'buta', 'cerea']);
+});

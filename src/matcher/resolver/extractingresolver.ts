@@ -1,5 +1,5 @@
 import { Resolver } from "./resolver";
-import { Result } from "./result";
+import { Context } from "./context";
 
 export class ExtractingResolver extends Resolver {
   private _extractor: any;
@@ -10,7 +10,7 @@ export class ExtractingResolver extends Resolver {
     this._extractor = extractor;
   }
 
-  async resolve(result: Result): Promise<void> {
-    result.value = await this._extractor(result.value);
+  async resolve(context: Context): Promise<void> {
+    context.value = await this._extractor(context.value);
   }
 }
