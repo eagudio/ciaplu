@@ -24,17 +24,18 @@ async function example() {
   console.log(result); // Output: 'bagna cauda'
 }
 ```
-### Matching Class Instances
+### Matching Class Instances (Synchronous)
 ```Typescript
 import { match } from 'ciaplu';
 
 try {
   throw new BoiaFausError();
 } catch (ex) {
-  const res = await match(ex)
+  const res = match(ex)
     .with(TurnaSiError, () => 'Handled TurnaSiError')
     .with(BoiaFausError, () => 'Handled BoiaFausError')
-    .otherwise(() => 'Cerea!');
+    .otherwise(() => 'Cerea!')
+    .return();
 
   console.log(res); // Output: 'Handled BoiaFausError'
 }
