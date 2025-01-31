@@ -34,7 +34,7 @@ try {
   const res = await match(ex)
     .with(TurnaSiError, () => 'Handled TurnaSiError')
     .with(BoiaFausError, () => 'Handled BoiaFausError')
-    .otherwise(async () => 'Cerea!');
+    .otherwise(() => 'Cerea!');
 
   console.log(res); // Output: 'Handled BoiaFausError'
 }
