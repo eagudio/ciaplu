@@ -13,4 +13,8 @@ export class ExtractingStatement extends Statement {
   async handle(context: Context): Promise<void> {
     context.value = await this._extractor(context.value);
   }
+
+  syncHandle(context: Context): void {
+    context.value = this._extractor(context.value);
+  }
 }

@@ -11,6 +11,10 @@ export class MatchingFirstStatement extends Statement {
   }
 
   async handle(context: Context): Promise<void> {
+    this.syncHandle(context);
+  }
+
+  syncHandle(context: Context): void {
     context.matchingFirst = this._matchingFirst;
   }
 }

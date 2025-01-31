@@ -27,4 +27,20 @@ export class WhenStatement extends Statement {
 
     context.results.push(result);
   }
+
+  syncHandle(context: Context): void {
+    const matched: boolean = this._condition(context.value);
+
+    if (!matched) {
+      context.matched = false;
+
+      return;
+    }
+
+    context.matched = true;
+
+    const result = this._handler();
+
+    context.results.push(result);
+  }
 }

@@ -93,6 +93,9 @@ Returns only the last matched value when using `matchingFirst()`, capturing only
 ### `.otherwise(handler)`
 Defines a fallback handler to execute if no conditions match:
 - handler: A function to execute as a fallback. It can be synchronous or asynchronous.
+### `.return()`
+Executes the matching logic synchronously and returns the final result immediately.  
+This is useful when all handlers are synchronous and you don't need to await a Promise.
 ## Contributing
 Contributions are welcome! To contribute:
 1. Fork the repository.

@@ -12,6 +12,18 @@ t.test('Match instance with specific type', async t => {
   t.equal(res, 'MockException1');
 });
 
+t.test('Sync match instance with specific type and return value', async t => {
+  class MockException1 extends Error {};
+
+  const ex1 = new MockException1('error 1');
+
+  const res = match(ex1)
+    .withType(MockException1, () => 'MockException1')
+    .return();
+
+  t.equal(res, 'MockException1');
+});
+
 t.test('Match one of multiple instance types', async t => {
   class MockException1 extends Error {};
   class MockException2 extends Error {};

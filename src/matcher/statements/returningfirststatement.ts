@@ -11,6 +11,10 @@ export class ReturningFirstStatement extends Statement {
   }
 
   async handle(context: Context): Promise<void> {
+    this.syncHandle(context);
+  }
+
+  syncHandle(context: Context): void {
     context.returningFirst = this._returningFirst;
 
     if (context.returningFirst) {

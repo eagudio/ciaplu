@@ -25,4 +25,18 @@ export class WithTypeStatement extends Statement {
 
     context.results.push(result);
   }
+
+  syncHandle(context: Context): void {
+    if (!(context.value instanceof this._value)) {
+      context.matched = false;
+
+      return;
+    }
+
+    context.matched = true;
+
+    const result = this._handler();
+
+    context.results.push(result);
+  }
 }

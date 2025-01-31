@@ -11,6 +11,10 @@ export class PerformingStatement extends Statement {
   }
 
   async handle(context: Context): Promise<void> {
+    this.syncHandle(context);
+  }
+
+  syncHandle(context: Context): void {
     context.matcher = this._matcher;
   }
 }

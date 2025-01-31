@@ -92,6 +92,20 @@ export class Matcher<T> extends Promise<any> {
     return this;
   }
 
+  return(): any {
+    for (let i = 0; i < this._statements.length; i++) {
+      const statement = this._statements[i];
+
+      statement.syncHandle(this._context);
+
+      if (this._context.resolve()) {
+        break;
+      }
+    }
+
+    return this._context.returnValue;
+  }
+
   /**
     * @deprecated This method is no longer necessary and should not be used.
   */

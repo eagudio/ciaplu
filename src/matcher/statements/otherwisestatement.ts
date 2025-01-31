@@ -19,4 +19,14 @@ export class OtherwiseStatement extends Statement {
 
     context.results.push(result);
   }
+
+  syncHandle(context: Context): void {
+    if (context.matched) {
+      return;
+    }
+
+    const result = this._handler();
+
+    context.results.push(result);
+  }
 }

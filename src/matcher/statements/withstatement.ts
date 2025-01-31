@@ -27,4 +27,20 @@ export class WithStatement extends Statement {
 
     context.results.push(resulte);
   }
+
+  syncHandle(context: Context): void {
+    const matched: boolean = context.matcher(context.value, this._value);
+
+    if (!matched) {
+      context.matched = false;
+
+      return;
+    }
+
+    context.matched = true;
+
+    const resulte = this._handler();
+
+    context.results.push(resulte);
+  }
 }
