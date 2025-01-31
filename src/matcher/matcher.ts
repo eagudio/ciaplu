@@ -110,17 +110,7 @@ export class Matcher<T> extends Promise<any> {
     * @deprecated This method is no longer necessary and should not be used.
   */
   async resolve() {
-    for (let i = 0; i < this._statements.length; i++) {
-      const statement = this._statements[i];
-
-      await statement.handle(this._context);
-
-      if (this._context.resolve()) {
-        break;
-      }
-    }
-
-    return this._context.returnValue;
+    return await this._resolve();
   }
 
   then<TResult1 = T, TResult2 = never>(
