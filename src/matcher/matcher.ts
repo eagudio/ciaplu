@@ -125,6 +125,8 @@ export class Matcher<T> extends Promise<any> {
   }
 
   return(): any {
+    this._context.matcher = (value1: any, value2: any) => value1 === value2;
+
     for (let i = 0; i < this._statements.length; i++) {
       const statement = this._statements[i];
 
