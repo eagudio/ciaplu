@@ -1,7 +1,7 @@
 import { Statement } from "./statement";
 import { Context } from "./context";
 
-export class MatchingFirstStatement extends Statement {
+export class FirstStatement extends Statement {
   private _matchingFirst: boolean;
 
   constructor(matchingFirst: boolean) {
