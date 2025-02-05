@@ -40,7 +40,7 @@ try {
   console.log(res); // Output: 'Handled BoiaFausError'
 }
 ```
-### Collecting Multiple Matches with .any() and .returningAll()
+### Collecting Multiple Matches with .any() and .all()
 ```Typescript
 import { match } from 'ciaplu';
 
@@ -52,7 +52,7 @@ const res = await match('test string with multiple conditions')
   .with(3, async () => Promise.resolve('tinca'))
   .with(5, async () => Promise.resolve('buta'))
   .otherwise(async () => Promise.resolve('no match found!'))
-  .returningAll();
+  .all();
 
 console.log(res);
 // Output:
