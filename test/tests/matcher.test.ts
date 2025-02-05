@@ -142,12 +142,12 @@ t.test('Multiple conditions with promises', async t => {
 t.test('Performing and extracting used multiple times', async t => {
   const res = await match('string 123456')
     .extracting((value: string) => Promise.resolve(value.length))
-    .performing(async (length: number, value: number) => Promise.resolve(length === value))
+    .matching(async (length: number, value: number) => Promise.resolve(length === value))
     .when((length: number) => length === 12, () => Promise.resolve('length is 12!'))
     .with(9, async () => Promise.resolve('length is 9!'))
     .extracting((length: number) => Promise.resolve(length * 2))
     .when((length: number) => length === 26, () => Promise.resolve('length is 26!'))
-    .performing(async (length: number, value: number) => Promise.resolve(length > value))
+    .matching(async (length: number, value: number) => Promise.resolve(length > value))
     .with(13, async () => Promise.resolve('greater than 13!'))
     .otherwise(async () => Promise.resolve('no match found!'))
 
@@ -157,11 +157,11 @@ t.test('Performing and extracting used multiple times', async t => {
 t.test('Complex chain of performing and extracting', async t => {
   const res = await match({ text: 'example', count: 5 })
     .extracting((obj) => Promise.resolve({ ...obj, count: obj.count + 1 }))
-    .performing(async (obj, value) => Promise.resolve(obj.count === value))
+    .matching(async (obj, value) => Promise.resolve(obj.count === value))
     .with(7, async () => Promise.resolve('count is 7!'))
     .extracting((obj) => Promise.resolve({ ...obj, count: obj.count * 2 }))
     .when((obj) => obj.count === 12, () => Promise.resolve('count is 12!'))
-    .performing(async (obj, value) => Promise.resolve(obj.count < value))
+    .matching(async (obj, value) => Promise.resolve(obj.count < value))
     .with(20, async () => Promise.resolve('count less than 20!'))
     .otherwise(async () => Promise.resolve('no match found!'))
 
@@ -171,7 +171,7 @@ t.test('Complex chain of performing and extracting', async t => {
 t.test('Nested performing and extracting with conditions', async t => {
   const res = await match('nested example')
     .extracting((value: string) => Promise.resolve(value.split(' ')))
-    .performing(async (words, wordCount) => Promise.resolve(words.length === wordCount))
+    .matching(async (words, wordCount) => Promise.resolve(words.length === wordCount))
     .with(3, async () => Promise.resolve('three words!'))
     .extracting((words: string[]) => Promise.resolve(words.join('-')))
     .when((value: string) => value === 'nested-example', () => Promise.resolve('hyphenated match!'))
@@ -191,8 +191,8 @@ t.test('matchAll for multiple matches', async t => {
 
   const res = await match('test string with multiple conditions')
     .extracting((value: string) => Promise.resolve(value.split(' ')))
-    .performing(async (words, wordCount) => Promise.resolve(words.length === wordCount))
-    .matchingAll()
+    .matching(async (words, wordCount) => Promise.resolve(words.length === wordCount))
+    .any()
     .with(5, async () => await addWord('cerea'))
     .with(3, async () => Promise.resolve('tinca'))
     .with(5, async () => await addWord('buta'))
@@ -204,13 +204,13 @@ t.test('matchAll for multiple matches', async t => {
 t.test('matchAll for multiple matches and returning result array', async t => {
   const res = await match('test string with multiple conditions')
     .extracting((value: string) => Promise.resolve(value.split(' ')))
-    .performing(async (words, wordCount) => Promise.resolve(words.length === wordCount))
-    .matchingAll()
+    .matching(async (words, wordCount) => Promise.resolve(words.length === wordCount))
+    .any()
     .with(5, async () => Promise.resolve('cerea'))
     .with(3, async () => Promise.resolve('tinca'))
     .with(5, async () => Promise.resolve('buta'))
     .otherwise(async () => Promise.resolve('no match found!'))
-    .returningAll()
+    .all()
 
   t.same(res, ['cerea', 'buta']);
 });
@@ -226,16 +226,44 @@ t.test('matchFirst after matchAll', async t => {
 
   const res = await match('test string with multiple conditions')
     .extracting((value: string) => Promise.resolve(value.split(' ')))
-    .performing(async (words, wordCount) => Promise.resolve(words.length === wordCount))
-    .matchingAll()
+    .matching(async (words, wordCount) => Promise.resolve(words.length === wordCount))
+    .any()
     .with(5, async () => await addWord('cerea'))
     .with(3, async () => Promise.resolve('tinca'))
     .with(5, async () => await addWord('buta'))
     .with(5, async () => await addWord('cerea'))
-    .matchingFirst()
+    .first()
     .with(3, async () => Promise.resolve('tinca'))
     .with(5, async () => await addWord('buta'))
     .otherwise(async () => Promise.resolve('no match found!'))
 
   t.same(res, ['cerea', 'buta', 'cerea']);
+});
+
+t.test('match and extracting', async t => {
+  const hex = '00000100';
+
+  const res = match(hex.substring(0, 4))
+    .with('424D', () => ({ ext: 'bmp', mime: 'image/bmp' }))
+    .with('1F8B', () => ({ ext: 'tar.gz', mime: 'application/gzip' }))
+    .with('0B77', () => ({ ext: 'ac3', mime: 'audio/vnd.dolby.dd-raw' }))
+    .with('7801', () => ({ ext: 'dmg', mime: 'application/x-apple-diskimage' }))
+    .with('4D5A', () => ({ ext: 'exe', mime: 'application/x-msdownload' }))
+    .when((val) => ['1FA0', '1F9D'].includes(val), () => ({ ext: 'Z', mime: 'application/x-compress' }))
+    .extracting(() => hex.substring(0, 6))
+    .with('FFD8FF', () => ({ ext: 'jpg', mime: 'image/jpeg' }))
+    .with('4949BC', () => ({ ext: 'jxr', mime: 'image/vnd.ms-photo' }))
+    .with('425A68', () => ({ ext: 'bz2', mime: 'application/x-bzip2' }))
+    .extracting(() => hex)
+    .with('89504E47', () => ({ ext: 'png', mime: 'image/png' }))
+    .with('47494638', () => ({ ext: 'gif', mime: 'image/gif' }))
+    .with('25504446', () => ({ ext: 'pdf', mime: 'application/pdf' }))
+    .with('504B0304', () => ({ ext: 'zip', mime: 'application/zip' }))
+    .with('425047FB', () => ({ ext: 'bpg', mime: 'image/bpg' }))
+    .with('4D4D002A', () => ({ ext: 'tif', mime: 'image/tiff' }))
+    .with('00000100', () => ({ ext: 'ico', mime: 'image/x-icon' }))
+    .otherwise(() => ({ ext: '', mime: 'unknown ' + hex }))
+    .return();
+
+  t.same(res, { ext: 'ico', mime: 'image/x-icon' });
 });

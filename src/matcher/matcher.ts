@@ -1,10 +1,10 @@
 import { ExtractingStatement } from "./statements/extractingstatement";
-import { MatchingFirstStatement } from "./statements/matchingfirststatement";
+import { FirstStatement } from "./statements/firststatement";
 import { OtherwiseStatement } from "./statements/otherwisestatement";
 import { PerformingStatement } from "./statements/performingstatement";
 import { Statement } from "./statements/statement";
 import { Context } from "./statements/context";
-import { ReturningFirstStatement } from "./statements/returningfirststatement";
+import { OneStatement } from "./statements/onestatement";
 import { WhenStatement } from "./statements/whenstatement";
 import { WithStatement } from "./statements/withstatement";
 import { WithTypeStatement } from "./statements/withtypestatement";
@@ -19,16 +19,32 @@ export class Matcher<T> extends Promise<any> {
     this._context = new Context(value);
   }
 
-  matchingFirst(): Matcher<T> {
-    this._statements.push(new MatchingFirstStatement(true));
+  first(): Matcher<T> {
+    this._statements.push(new FirstStatement(true));
     
     return this;
   }
 
-  matchingAll(): Matcher<T> {
-    this._statements.push(new MatchingFirstStatement(false));
+  /**
+   * @deprecated This method is deprecated and will be removed in a future release.  
+   * Please use {@link first} instead.  
+   */
+  matchingFirst(): Matcher<T> {    
+    return this.first();
+  }
+
+  any(): Matcher<T> {
+    this._statements.push(new FirstStatement(false));
 
     return this;
+  }
+
+  /**
+   * @deprecated This method is deprecated and will be removed in a future release.  
+   * Please use {@link any} instead.  
+   */
+  matchingAll(): Matcher<T> {
+    return this.any();
   }
 
   with(
@@ -66,7 +82,7 @@ export class Matcher<T> extends Promise<any> {
     return this;
   }
 
-  performing(
+  matching(
     matcher: (value1: any, value2: any) => Promise<boolean> | boolean
   ): Matcher<T> {
     this._statements.push(new PerformingStatement(matcher));
@@ -80,19 +96,37 @@ export class Matcher<T> extends Promise<any> {
     return this;
   }
 
-  returningFirst(): Matcher<T> {
-    this._statements.push(new ReturningFirstStatement(true));
+  one(): Matcher<T> {
+    this._statements.push(new OneStatement(true));
     
     return this;
   }
 
-  returningAll(): Matcher<T> {
-    this._statements.push(new ReturningFirstStatement(false));
+  /**
+   * @deprecated This method is deprecated and will be removed in a future release.  
+   * Please use {@link one} instead.  
+   */
+  returningFirst(): Matcher<T> {
+    return this.one();
+  }
+
+  all(): Matcher<T> {
+    this._statements.push(new OneStatement(false));
     
     return this;
+  }
+
+  /**
+   * @deprecated This method is deprecated and will be removed in a future release.  
+   * Please use {@link all} instead.  
+   */
+  returningAll(): Matcher<T> {    
+    return this.all();
   }
 
   return(): any {
+    this._context.matcher = (value1: any, value2: any) => value1 === value2;
+
     for (let i = 0; i < this._statements.length; i++) {
       const statement = this._statements[i];
 
