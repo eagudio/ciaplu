@@ -40,14 +40,14 @@ try {
   console.log(res); // Output: 'Handled BoiaFausError'
 }
 ```
-### Collecting Multiple Matches with .matchingAll() and .returningAll()
+### Collecting Multiple Matches with .any() and .returningAll()
 ```Typescript
 import { match } from 'ciaplu';
 
 const res = await match('test string with multiple conditions')
   .extracting((value: string) => Promise.resolve(value.split(' ')))
-  .performing(async (words, wordCount) => Promise.resolve(words.length === wordCount))
-  .matchingAll()
+  .matching(async (words, wordCount) => Promise.resolve(words.length === wordCount))
+  .any()
   .with(5, async () => Promise.resolve('cerea'))
   .with(3, async () => Promise.resolve('tinca'))
   .with(5, async () => Promise.resolve('buta'))
@@ -80,17 +80,17 @@ Defines a condition to match based on a function that returns a boolean or a pro
 ### `.extracting(extractor)`
 Extracts a value from the matched input:
 - extractor: A function that takes the input value and returns a transformed result.
-### `.performing(matcher)`
+### `.matching(matcher)`
 Changes the matcher to be applied from that point forward:
 - matcher: A function that determines how subsequent matching will be applied.
-### `matchingAll()`
+### `first()`
+Executes only the first handler that matches the condition. Useful for cases where you only need to handle the first match. This is the default behavior
+### `any()`
 Executes all handlers that match the condition. Useful for cases where you want to handle multiple matches.
-### `matchingFirst()`
-Executes only the first handler that matches the condition. Useful for cases where you only need to handle the first match.
-### `returningAll()`
-Returns an array of results when using `matchingAll()`, allowing you to capture all matched values.
-### `returningLast()`
-Returns only the last matched value when using `matchingFirst()`, capturing only the final result.
+### `one()`
+Returns only the first matched value. This is the default behavior.
+### `all()`
+Returns an array of results, allowing you to capture all matched values.
 ### `.otherwise(handler)`
 Defines a fallback handler to execute if no conditions match:
 - handler: A function to execute as a fallback. It can be synchronous or asynchronous.

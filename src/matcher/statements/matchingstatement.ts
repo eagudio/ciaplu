@@ -1,7 +1,7 @@
 import { Statement } from "./statement";
 import { Context } from "./context";
 
-export class PerformingStatement extends Statement {
+export class MatchingStatement extends Statement {
   private _matcher: any;
 
   constructor(matcher: any) {

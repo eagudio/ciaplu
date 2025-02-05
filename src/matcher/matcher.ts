@@ -1,7 +1,7 @@
 import { ExtractingStatement } from "./statements/extractingstatement";
 import { FirstStatement } from "./statements/firststatement";
 import { OtherwiseStatement } from "./statements/otherwisestatement";
-import { PerformingStatement } from "./statements/performingstatement";
+import { MatchingStatement } from "./statements/matchingstatement";
 import { Statement } from "./statements/statement";
 import { Context } from "./statements/context";
 import { OneStatement } from "./statements/onestatement";
@@ -85,9 +85,19 @@ export class Matcher<T> extends Promise<any> {
   matching(
     matcher: (value1: any, value2: any) => Promise<boolean> | boolean
   ): Matcher<T> {
-    this._statements.push(new PerformingStatement(matcher));
+    this._statements.push(new MatchingStatement(matcher));
 
     return this;
+  }
+
+  /**
+   * @deprecated This method is deprecated and will be removed in a future release.  
+   * Please use {@link matching} instead.  
+   */
+  performing(
+    matcher: (value1: any, value2: any) => Promise<boolean> | boolean
+  ): Matcher<T> {
+    return this.performing(matcher);
   }
 
   otherwise(handler: () => Promise<any> | any): Matcher<T> {
