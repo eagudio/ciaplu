@@ -8,6 +8,7 @@ import { OneStatement } from "./statements/onestatement";
 import { WhenStatement } from "./statements/whenstatement";
 import { WithStatement } from "./statements/withstatement";
 import { WithTypeStatement } from "./statements/withtypestatement";
+import { ToBeStatement } from "./statements/tobestatement";
 
 export class Matcher<T> extends Promise<any> {
   private _statements: Statement[] = [];
@@ -74,6 +75,18 @@ export class Matcher<T> extends Promise<any> {
     return this;
   }
 
+  not() {
+    this._statements.push(new ToBeStatement(false));
+
+    return this;
+  }
+
+  yet() {
+    this._statements.push(new ToBeStatement(true));
+
+    return this;
+  }
+
   extracting(
     extractor: (value: T) => Promise<any> | any
   ): Matcher<T> {
@@ -82,12 +95,22 @@ export class Matcher<T> extends Promise<any> {
     return this;
   }
 
-  matching(
+  test(
     matcher: (value1: any, value2: any) => Promise<boolean> | boolean
   ): Matcher<T> {
     this._statements.push(new MatchingStatement(matcher));
 
     return this;
+  }
+
+  /**
+   * @deprecated This method is deprecated and will be removed in a future release.  
+   * Please use {@link test} instead.  
+   */
+  matching(
+    matcher: (value1: any, value2: any) => Promise<boolean> | boolean
+  ): Matcher<T> {
+    return this.test(matcher);
   }
 
   /**

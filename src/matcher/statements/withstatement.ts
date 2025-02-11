@@ -15,7 +15,7 @@ export class WithStatement extends Statement {
   async handle(context: Context): Promise<void> {
     const matched: boolean = await context.matcher(context.value, this._value);
 
-    if (!matched) {
+    if (!matched && context.toBe === true) {
       context.matched = false;
 
       return;
@@ -31,7 +31,7 @@ export class WithStatement extends Statement {
   syncHandle(context: Context): void {
     const matched: boolean = context.matcher(context.value, this._value);
 
-    if (!matched) {
+    if (!matched && context.toBe === true) {
       context.matched = false;
 
       return;
