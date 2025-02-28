@@ -1,6 +1,7 @@
 export class Context {
   private _value: any;
   private _matcher: any;
+  private _toBe: boolean;
   private _returningFirst: boolean;
   private _matchingFirst: boolean;
   private _results: any[];
@@ -10,6 +11,7 @@ export class Context {
   constructor(value: any) {
     this._value = value;
     this._matcher = (value1: any, value2: any) => Promise.resolve(value1 === value2);
+    this._toBe = true;
     this._matchingFirst = true;
     this._returningFirst = true;
     this._results = [];
@@ -33,12 +35,12 @@ export class Context {
     this._matcher = matcher;
   }
 
-  get returningFirst(): boolean {
-    return this._returningFirst;
+  get toBe(): boolean {
+    return this._toBe;
   }
 
-  set returningFirst(returningFirst: boolean) {
-    this._returningFirst = returningFirst;
+  set toBe(toBe: boolean) {
+    this._toBe = toBe;
   }
 
   get matchingFirst(): boolean {
@@ -47,6 +49,14 @@ export class Context {
 
   set matchingFirst(matchingFirst: boolean) {
     this._matchingFirst = matchingFirst;
+  }
+
+  get returningFirst(): boolean {
+    return this._returningFirst;
+  }
+
+  set returningFirst(returningFirst: boolean) {
+    this._returningFirst = returningFirst;
   }
 
   get results(): any[] {
