@@ -87,6 +87,10 @@ Changes the matcher to be applied from that point forward:
 Executes only the first handler that matches the condition. Useful for cases where you only need to handle the first match. This is the default behavior
 ### `any()`
 Executes all handlers that match the condition. Useful for cases where you want to handle multiple matches.
+### `.not()`
+Negates the condition, meaning the next statement will match only if the condition is false.
+### `.yet()`
+Affirms the condition, meaning the next statement will match only if the condition is true.
 ### `one()`
 Returns only the first matched value. This is the default behavior.
 ### `all()`
