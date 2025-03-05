@@ -287,3 +287,51 @@ t.test('match and extracting', async t => {
 
   t.same(res, { ext: 'ico', mime: 'image/x-icon' });
 });
+
+// t.test('match and extracting', async t => {
+//   const call = {
+//     method: 'GET',
+//     url: '/users/1',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Accept': 'application/json'
+//     },
+//     body: null,
+//     query: null,
+//     params: {
+//       id: '1'
+//     },
+//     cookies: null,
+//   };
+
+//   const res = match(httpCall)
+//     .extracting((req) => ...) // TODO: estrae tutti i dati della richiesta (metodo, url, headers, body, query, params, cookies, ecc)
+//     .test((httpCall, url) => httpCall.url === url) // TODO: controlla l'url... in realtà dovrebbe usare le regex perché l'url contiene parametri, query, ecc.
+//     .with('/users/:id', () => match()
+//       .test((httpCall, method) => httpCall.method === method) // TODO: controlla il metodo
+//       .with('GET', () => match()
+//         .extracting(...) // qui ci sono i middleware, definiti con più extracting (recupero della sessione, del token, ecc)
+//         .when(...) // qui ci sono i middleware, definiti con più when (per esempio controllo dei permessi, controllo del token, ecc.)
+//         // se uno di questi fallisce, ritorna un eccezione
+//       )
+//       .with('POST', () => ...)
+//       .with('PUT', () => ...)
+//       .with('DELETE', () => ...)
+//     )
+//     .with('/users/', () => match()
+//       .test((httpCall, method) => httpCall.method === method) // TODO: controlla il metodo
+//       .with('GET', () => match()
+//         .extracting(...) // qui ci sono i middleware, definiti con più extracting (recupero della sessione, del token, ecc)
+//         .when(...) // qui ci sono i middleware, definiti con più when (per esempio controllo dei permessi, controllo del token, ecc.)
+//         // se uno di questi fallisce, ritorna un eccezione
+//       )
+//       .with('POST', () => ...)
+//       .with('PUT', () => ...)
+//       .with('DELETE', () => ...)
+//       .otherwise(async () => false)
+//     )
+
+//     // alla fine, viene inviata la risposta
+
+//   t.same(res, { id: '1', name: 'User 1' });
+// });
