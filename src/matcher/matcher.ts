@@ -12,7 +12,7 @@ import { ToBeStatement } from "./statements/tobestatement";
 
 export class Matcher<T> extends Promise<any> {
   private _statements: Statement[] = [];
-  private _context: Context;
+  protected _context: Context;
   
   constructor(value: T) {
     super(() => {});
@@ -50,7 +50,7 @@ export class Matcher<T> extends Promise<any> {
 
   with(
     value: any,
-    handler: () => Promise<any> | any
+    handler: () => Promise<any> | any = () => true
   ): Matcher<T> {
     this._statements.push(new WithStatement(value, handler));
 
@@ -59,7 +59,7 @@ export class Matcher<T> extends Promise<any> {
 
   withType<U>(
     value: new (...args: any[]) => U,
-    handler: () => Promise<any> | any
+    handler: () => Promise<any> | any = () => true
   ): Matcher<T> {
     this._statements.push(new WithTypeStatement(value, handler));
 
@@ -68,7 +68,7 @@ export class Matcher<T> extends Promise<any> {
 
   when(
     condition: (value: T) => Promise<boolean> | boolean,
-    handler: () => Promise<any> | any
+    handler: () => Promise<any> | any = () => true
   ): Matcher<T> {
     this._statements.push(new WhenStatement(condition, handler));
 
@@ -120,7 +120,7 @@ export class Matcher<T> extends Promise<any> {
   performing(
     matcher: (value1: any, value2: any) => Promise<boolean> | boolean
   ): Matcher<T> {
-    return this.performing(matcher);
+    return this.matching(matcher);
   }
 
   otherwise(handler: () => Promise<any> | any): Matcher<T> {

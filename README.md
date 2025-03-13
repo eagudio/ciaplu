@@ -21,7 +21,7 @@ async function example() {
     .with('bagna cauda', async () => await asyncFunction2())
     .otherwise(async () => await asyncCereaFunction());
 
-  console.log(result); // Output: 'bagna cauda'
+  console.log(result); // Output: asyncFunction2 output...
 }
 ```
 ### Matching Class Instances (Synchronous)
@@ -32,8 +32,8 @@ try {
   throw new BoiaFausError();
 } catch (ex) {
   const res = match(ex)
-    .with(TurnaSiError, () => 'Handled TurnaSiError')
-    .with(BoiaFausError, () => 'Handled BoiaFausError')
+    .withType(TurnaSiError, () => 'Handled TurnaSiError')
+    .withType(BoiaFausError, () => 'Handled BoiaFausError')
     .otherwise(() => 'Cerea!')
     .return();
 
@@ -62,7 +62,7 @@ console.log(res);
 // ]
 ```
 ## API
-### `match(value)`
+### `.match(value)`
 Initializes a matcher for the given value. The value can be a primitive, an object, or an exception.
 ### `.with(condition, handler)`
 Defines a condition and its corresponding handler:
@@ -83,17 +83,17 @@ Extracts a value from the matched input:
 ### `.matching(matcher)`
 Changes the matcher to be applied from that point forward:
 - matcher: A function that determines how subsequent matching will be applied.
-### `first()`
+### `.first()`
 Executes only the first handler that matches the condition. Useful for cases where you only need to handle the first match. This is the default behavior
-### `any()`
+### `.any()`
 Executes all handlers that match the condition. Useful for cases where you want to handle multiple matches.
 ### `.not()`
 Negates the condition, meaning the next statement will match only if the condition is false.
 ### `.yet()`
 Affirms the condition, meaning the next statement will match only if the condition is true.
-### `one()`
+### `.one()`
 Returns only the first matched value. This is the default behavior.
-### `all()`
+### `.all()`
 Returns an array of results, allowing you to capture all matched values.
 ### `.otherwise(handler)`
 Defines a fallback handler to execute if no conditions match:
