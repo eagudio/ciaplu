@@ -1,6 +1,5 @@
 import t from 'tap';
-import { match, Matcher } from '../../src/main';
-import { Context } from '../../src/matcher/statements/context';
+import { match, Matcher, Context } from '../../src/main';
 
 t.test('Match string value', async t => {
   const res = await match('string')
