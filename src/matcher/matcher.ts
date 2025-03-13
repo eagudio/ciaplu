@@ -12,7 +12,7 @@ import { ToBeStatement } from "./statements/tobestatement";
 
 export class Matcher<T> extends Promise<any> {
   private _statements: Statement[] = [];
-  private _context: Context;
+  protected _context: Context;
   
   constructor(value: T) {
     super(() => {});
@@ -120,7 +120,7 @@ export class Matcher<T> extends Promise<any> {
   performing(
     matcher: (value1: any, value2: any) => Promise<boolean> | boolean
   ): Matcher<T> {
-    return this.performing(matcher);
+    return this.matching(matcher);
   }
 
   otherwise(handler: () => Promise<any> | any): Matcher<T> {
