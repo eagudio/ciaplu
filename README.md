@@ -48,17 +48,17 @@ const res = await match('test string with multiple conditions')
   .extracting((value: string) => Promise.resolve(value.split(' ')))
   .matching(async (words, wordCount) => Promise.resolve(words.length === wordCount))
   .any()
-  .with(5, async () => Promise.resolve('cerea'))
+  .with(5, async (value: any) => Promise.resolve(`cerea (${value})`))
   .with(3, async () => Promise.resolve('tinca'))
-  .with(5, async () => Promise.resolve('buta'))
+  .with(5, async (value: any) => Promise.resolve(`buta (${value})`))
   .otherwise(async () => Promise.resolve('no match found!'))
   .all();
 
 console.log(res);
 // Output:
 // [
-//   "cerea",
-//   "buta",
+//   "cerea (5)",
+//   "buta (5)",
 // ]
 ```
 ## API
