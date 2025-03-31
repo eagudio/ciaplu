@@ -113,10 +113,10 @@ t.test('Match instance and throw error in handler', async t => {
 
 t.test('Match condition based on function', async t => {
   const res = await match('string 2')
-    .when((value: string) => value === 'string 1', () => 'match with string 1!')
-    .when((value: string) => value === 'string 2', () => 'match with string 2!')
+    .when((value: string) => value === 'string 1', (value: string) => `string ${value} match with string 1!`)
+    .when((value: string) => value === 'string 2', (value: string) => `string ${value} match with string 2!`)
 
-  t.equal(res, 'match with string 2!');
+  t.equal(res, 'string string 2 match with string 2!');
 });
 
 t.test('No condition matched with fallback', async t => {

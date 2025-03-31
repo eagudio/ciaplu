@@ -50,7 +50,7 @@ export class Matcher<T> extends Promise<any> {
 
   with(
     value: any,
-    handler: () => Promise<any> | any = () => true
+    handler: (value: any) => Promise<any> | any = () => true
   ): Matcher<T> {
     this._statements.push(new WithStatement(value, handler));
 
@@ -59,7 +59,7 @@ export class Matcher<T> extends Promise<any> {
 
   withType<U>(
     value: new (...args: any[]) => U,
-    handler: () => Promise<any> | any = () => true
+    handler: (value: any) => Promise<any> | any = () => true
   ): Matcher<T> {
     this._statements.push(new WithTypeStatement(value, handler));
 
@@ -68,7 +68,7 @@ export class Matcher<T> extends Promise<any> {
 
   when(
     condition: (value: T) => Promise<boolean> | boolean,
-    handler: () => Promise<any> | any = () => true
+    handler: (value: any) => Promise<any> | any = () => true
   ): Matcher<T> {
     this._statements.push(new WhenStatement(condition, handler));
 
@@ -123,7 +123,7 @@ export class Matcher<T> extends Promise<any> {
     return this.matching(matcher);
   }
 
-  otherwise(handler: () => Promise<any> | any): Matcher<T> {
+  otherwise(handler: (value: any) => Promise<any> | any): Matcher<T> {
     this._statements.push(new OtherwiseStatement(handler));
     
     return this;

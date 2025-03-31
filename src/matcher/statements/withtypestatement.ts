@@ -3,9 +3,9 @@ import { Context } from "./context";
 
 export class WithTypeStatement extends Statement {
   private _value: any;
-  private _handler: () => Promise<any> | any;
+  private _handler: (value: any) => Promise<any> | any;
 
-  constructor(value: any, handler: () => Promise<any> | any) {
+  constructor(value: any, handler: (value: any) => Promise<any> | any) {
     super();
 
     this._value = value;
@@ -21,7 +21,7 @@ export class WithTypeStatement extends Statement {
 
     context.matched = true;
 
-    const result = await this._handler();
+    const result = await this._handler(context.value);
 
     context.results.push(result);
   }
@@ -35,7 +35,7 @@ export class WithTypeStatement extends Statement {
 
     context.matched = true;
 
-    const result = this._handler();
+    const result = this._handler(context.value);
 
     context.results.push(result);
   }

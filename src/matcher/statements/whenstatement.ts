@@ -3,9 +3,9 @@ import { Context } from "./context";
 
 export class WhenStatement extends Statement {
   private _condition: any;
-  private _handler: () => Promise<any> | any;
+  private _handler: (value: any) => Promise<any> | any;
 
-  constructor(condition: any, handler: () => Promise<any> | any) {
+  constructor(condition: any, handler: (value: any) => Promise<any> | any) {
     super();
 
     this._condition = condition;
@@ -23,7 +23,7 @@ export class WhenStatement extends Statement {
 
     context.matched = true;
 
-    const result = await this._handler();
+    const result = await this._handler(context.value);
 
     context.results.push(result);
   }
@@ -39,7 +39,7 @@ export class WhenStatement extends Statement {
 
     context.matched = true;
 
-    const result = this._handler();
+    const result = this._handler(context.value);
 
     context.results.push(result);
   }

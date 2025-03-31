@@ -2,9 +2,9 @@ import { Statement } from "./statement";
 import { Context } from "./context";
 
 export class OtherwiseStatement extends Statement {
-  private _handler: () => Promise<any> | any;
+  private _handler: (value: any) => Promise<any> | any;
 
-  constructor(handler: () => Promise<any> | any) {
+  constructor(handler: (value: any) => Promise<any> | any) {
     super();
 
     this._handler = handler;
@@ -15,7 +15,7 @@ export class OtherwiseStatement extends Statement {
       return;
     }
 
-    const result = await this._handler();
+    const result = await this._handler(context.value);
 
     context.results.push(result);
   }
@@ -25,7 +25,7 @@ export class OtherwiseStatement extends Statement {
       return;
     }
 
-    const result = this._handler();
+    const result = this._handler(context.value);
 
     context.results.push(result);
   }
